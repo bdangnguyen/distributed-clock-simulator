@@ -115,7 +115,7 @@ mod test {
 
     #[test]
     fn test_broadcast() {
-        const MESSAGE: &str = "Hellow World!";
+        const MESSAGE: &str = "Hello World!";
         const SENDER_ADDRESS: &str = "127.0.0.1:8080";
         const CLIENT_ADDRESS: &str = "127.0.0.1:8081";
 

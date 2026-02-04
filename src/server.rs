@@ -71,7 +71,9 @@ fn read_message(stream: &TcpStream, clients: Arc<Mutex<Vec<TcpStream>>>) {
 fn broadcast<T: ClientStream>(clients: &Arc<Mutex<Vec<T>>>, message: &str, sender: &str) {
     for client in clients.lock().unwrap().iter_mut() {
         if client.peer_addr() != sender {
-            writeln!(client, "{}", message).unwrap_or_else(|e| println!("Failed to send: {}", e));
+            writeln!(client, "{}", message)
+                .and_then(|_| client.flush())
+                .unwrap_or_else(|e| eprintln!("Failed to send: {}", e));
         }
     }
 }
